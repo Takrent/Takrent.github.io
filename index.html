@@ -31,13 +31,14 @@
 
         /* --- NAVIGASJON --- */
         header {
-            background: var(--white);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-        }
+    background: rgba(255, 255, 255, 0.95); /* Litt gjennomsiktig hvit */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    padding: 10px 0; /* Gir luft over og under logoen */
+}
 
         .container {
             max-width: 1100px;
@@ -71,18 +72,21 @@
 
         /* --- HERO SEKSJON (TOPPEN) --- */
         .hero {
-            /* Bilde av tak/hus - Bytt URL hvis du vil ha et annet */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--white);
-            margin-top: 70px; /* Kompenserer for fast meny */
-        }
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Endre margin-top til padding-top for å dytte teksten ned, 
+       men holde bildet helt i toppen under den gjennomsiktige menyen */
+    margin-top: 0; 
+    padding-top: 120px; 
+    min-height: 80vh; /* Bruker 80% av skjermhøyden */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
         .hero-content h1 {
             font-size: 3rem;
@@ -195,7 +199,7 @@
         <div class="container">
             <nav>
                 <div class="logo">
-    <img src="logo.png" alt="Takrent Logo" style="height: 100px; width: auto; display: block;">
+    <img src="logo.png" alt="Takrent Logo" style="height: 120px; width: auto; display: block;">
 </div>
                 <ul class="nav-links">
                     <li><a href="#hjem">Hjem</a></li>
