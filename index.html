@@ -257,13 +257,105 @@
             font-size: 0.9rem;
         }
 
+        /* --- MOBIL-MENY (HAMBURGER) --- */
+        /* --- MOBIL-MENY (HAMBURGER) --- */
+        .menu-toggle {
+            display: none;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            width: 52px;
+            height: 52px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            z-index: 1201;
+            border-radius: 10px;
+            transition: background 0.22s cubic-bezier(.2,.9,.2,1), box-shadow 0.22s;
+        }
+
+        .menu-toggle .bar {
+            display: block;
+            width: 30px;
+            height: 3px;
+            background: var(--text-dark);
+            margin: 5px 0;
+            border-radius: 3px;
+            transition: transform 0.36s cubic-bezier(.2,.9,.2,1), opacity 0.22s ease, background 0.18s ease;
+            transform-origin: center;
+            box-shadow: 0 1px 0 rgba(0,0,0,0.06) inset;
+        }
+
+        /* Animated state when open */
+        .menu-toggle.open { background: linear-gradient(135deg, rgba(30,136,229,0.95), rgba(0,86,179,0.95)); box-shadow: 0 10px 30px rgba(8,30,70,0.25); }
+        .menu-toggle.open .bar { background: var(--text-light); box-shadow: none; }
+        .menu-toggle.open .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+        .menu-toggle.open .bar:nth-child(2) { opacity: 0; transform: scaleX(0.01); }
+        .menu-toggle.open .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+        /* Hover / focus states */
+        .menu-toggle:hover { background: rgba(0,0,0,0.06); }
+        .menu-toggle:focus { outline: none; }
+        .menu-toggle:focus-visible { box-shadow: 0 0 0 3px rgba(30,136,229,0.15); }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .menu-toggle .bar,
+            .nav-links { transition: none !important; }
+        }
+
         /* --- MOBIL --- */
         @media (max-width: 768px) {
-            .nav-links { display: none; } /* Enkel mobilvisning: skjuler linker for å spare plass */
-            .hero { padding-top: 150px; } /* Enda mer plass på mobil hvis logoen tar plass */
-            .logo img { height: 60px; } /* Litt mindre logo på mobil */
+            .menu-toggle { display: flex !important; }
+            nav { position: relative; }
+            .menu-toggle { position: absolute; right: 18px; top: 50%; transform: translateY(-50%); }
+
+            /* Fullscreen overlay menu */
+            .nav-links {
+                display: flex;
+                position: fixed;
+                inset: 0;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                gap: 24px;
+                background: rgba(10,10,10,0.95);
+                transform: translateY(-6%);
+                opacity: 0;
+                pointer-events: none;
+                transition: transform 0.36s cubic-bezier(.2,.9,.2,1), opacity 0.26s ease;
+                z-index: 1100;
+            }
+
+            .nav-links li { display: block; }
+            .nav-links a { padding: 12px 18px; display: block; color: var(--text-light); font-weight: 800; font-size: 1.35rem; letter-spacing: 1px; text-transform: uppercase; }
+            .nav-links a:hover { color: var(--accent-color); transform: none; }
+
+            .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
+
+            /* subtle backdrop blur for modern look */
+            .nav-links.open { backdrop-filter: blur(6px); }
+
+            /* animate links with a short stagger */
+            .nav-links a { opacity: 0; transform: translateY(10px); transition: opacity 0.36s ease, transform 0.36s cubic-bezier(.2,.9,.2,1); }
+            .nav-links.open a { opacity: 1; transform: none; }
+            .nav-links.open a:nth-child(1){ transition-delay: 0.06s; }
+            .nav-links.open a:nth-child(2){ transition-delay: 0.12s; }
+            .nav-links.open a:nth-child(3){ transition-delay: 0.18s; }
+            .nav-links.open a:nth-child(4){ transition-delay: 0.24s; }
+
+            .hero { padding-top: 140px; }
+            .logo img { height: 60px; }
             .hero-content h1 { font-size: 2.2rem; }
             .contact-info { flex-direction: column; gap: 15px; }
+        }
+
+        /* Ensure hamburger is hidden on desktop even if other rules conflict */
+        @media (min-width: 769px) {
+            .menu-toggle { display: none !important; }
         }
         /* Contact form styles (matching kontakt.html) */
         #contactForm input,
@@ -309,7 +401,13 @@
                 <div class="logo">
                     <img src="logo.png" alt="Takrent Logo" width="240" height="90" fetchpriority="high" decoding="async">
                 </div>
-                <ul class="nav-links">
+                <button class="menu-toggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="navLinks">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <ul id="navLinks" class="nav-links">
                     <li><a href="index.html">Hjem</a></li>
                     <li><a href="tjenester.html">Tjenester</a></li>
                     <li><a href="kontakt.html">Kontakt</a></li>
@@ -424,42 +522,83 @@
             </div>
         </div>
     </footer>
-</body>
-</html>
-<script>
+
+    <script>
     (function(){
         const form = document.getElementById('contactForm');
-        if(!form) return;
-        const status = document.getElementById('formStatus');
+        if(form){
+            const status = document.getElementById('formStatus');
 
-        function showMessage(msg, isError){
-            status.textContent = msg;
-            status.style.color = isError ? '#d9534f' : '#2b7a2b';
+            function showMessage(msg, isError){
+                status.textContent = msg;
+                status.style.color = isError ? '#d9534f' : '#2b7a2b';
+            }
+
+            form.addEventListener('submit', function(ev){
+                ev.preventDefault();
+                const formData = new FormData(form);
+                const action = form.getAttribute('action');
+
+                showMessage('Sender…', false);
+
+                fetch(action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).then(function(response){
+                    if(response.ok){
+                        showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
+                        form.reset();
+                    } else {
+                        response.json().then(function(data){
+                            if(data && data.error){ showMessage(data.error, true); }
+                            else { showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); }
+                        }).catch(function(){ showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); });
+                    }
+                }).catch(function(){ showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true); });
+            });
         }
 
-        form.addEventListener('submit', function(ev){
-            ev.preventDefault();
-            const formData = new FormData(form);
-            const action = form.getAttribute('action');
-            const submitUrl = action;
-
-            showMessage('Sender…', false);
-
-            fetch(submitUrl, {
-                method: 'POST',
-                body: formData,
-                headers: { 'Accept': 'application/json' }
-            }).then(function(response){
-                if(response.ok){
-                    showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
-                    form.reset();
-                } else {
-                    response.json().then(function(data){
-                        if(data && data.error){ showMessage(data.error, true); }
-                        else { showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); }
-                    }).catch(function(){ showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); });
+        // Mobile nav toggle
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('navLinks');
+        if(btn && nav){
+            btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                const open = nav.classList.toggle('open');
+                btn.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', open);
+                btn.setAttribute('aria-label', open ? 'Lukk meny' : 'Åpne meny');
+                if(open){
+                    const firstLink = nav.querySelector('a');
+                    if(firstLink) firstLink.focus();
                 }
-            }).catch(function(){ showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true); });
-        });
+            });
+
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', function(){
+                nav.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', false);
+            }));
+
+            document.addEventListener('click', function(e){
+                if(!nav.contains(e.target) && !btn.contains(e.target)){
+                    nav.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', false);
+                }
+            });
+
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && nav.classList.contains('open')){
+                    nav.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', false);
+                    btn.focus();
+                }
+            });
+        }
     })();
-</script>
+    </script>
+</body>
+</html>

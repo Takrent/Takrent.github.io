@@ -5,11 +5,13 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Kontakt — Takrent</title>
     <style>
-        :root{ --primary-color:#0056b3; --accent-color:#1e88e5; --accent-hover:#1565c0; --text-dark:#222; --bg-light:#f9f9f9; }
+        :root{ --primary-color:#0056b3; --accent-color:#1e88e5; --accent-hover:#1565c0; --text-dark:#222; --text-light:#ffffff; --bg-light:#f9f9f9; }
         ul { list-style: none; margin: 0; padding: 0; }
         a { text-decoration: none; color: inherit; }
         body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; margin: 0; padding: 0; background:var(--bg-light); color:var(--text-dark); }
         .container { max-width: 900px; margin: 40px auto; padding: 20px; }
+        /* Header container matches homepage for consistent header layout */
+        header .container { max-width: 1200px; width: 100%; margin: 0 auto; padding: 0 20px; }
 
         header {
             background: #ffffff;
@@ -60,6 +62,16 @@
         main.container > img:first-of-type { width:100%; height:280px; object-fit:cover; border-radius:0; display:block; }
 
         @media (max-width:768px){ .nav-links { display:none; } .logo img { height:60px; } }
+        /* Mobile hamburger styles (copied from index.html) */
+        .menu-toggle{display:none;background:transparent;border:none;cursor:pointer;width:52px;height:52px;padding:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;margin-left:auto;z-index:1201;border-radius:10px;transition:background 0.22s cubic-bezier(.2,.9,.2,1),box-shadow 0.22s}
+        .menu-toggle .bar{display:block;width:30px;height:3px;background:var(--text-dark);margin:5px 0;border-radius:3px;transition:transform 0.36s cubic-bezier(.2,.9,.2,1),opacity 0.22s ease,background 0.18s ease;transform-origin:center;box-shadow:0 1px 0 rgba(0,0,0,0.06) inset}
+        .menu-toggle.open{background:linear-gradient(135deg, rgba(30,136,229,0.95), rgba(0,86,179,0.95));box-shadow:0 10px 30px rgba(8,30,70,0.25)}
+        .menu-toggle.open .bar{background:var(--text-light);box-shadow:none}
+        .menu-toggle.open .bar:nth-child(1){transform:translateY(9px) rotate(45deg)}
+        .menu-toggle.open .bar:nth-child(2){opacity:0;transform:scaleX(0.01)}
+        .menu-toggle.open .bar:nth-child(3){transform:translateY(-9px) rotate(-45deg)}
+        @media (max-width:768px){.menu-toggle{display:flex !important}nav{position:relative}.menu-toggle{position:absolute;right:18px;top:50%;transform:translateY(-50%)}.nav-links{display:flex;position:fixed;inset:0;justify-content:center;align-items:center;flex-direction:column;gap:24px;background:rgba(10,10,10,0.95);transform:translateY(-6%);opacity:0;pointer-events:none;transition:transform 0.36s cubic-bezier(.2,.9,.2,1),opacity 0.26s ease;z-index:1100}.nav-links li{display:block}.nav-links a{padding:12px 18px;display:block;color:var(--text-light);font-weight:800;font-size:1.35rem;letter-spacing:1px;text-transform:uppercase}.nav-links a:hover{color:var(--accent-color);transform:none}.nav-links.open{transform:none;opacity:1;pointer-events:auto}.nav-links.open{backdrop-filter:blur(6px)}.nav-links a{opacity:0;transform:translateY(10px);transition:opacity 0.36s ease,transform 0.36s cubic-bezier(.2,.9,.2,1)}.nav-links.open a{opacity:1;transform:none}.nav-links.open a:nth-child(1){transition-delay:0.06s}.nav-links.open a:nth-child(2){transition-delay:0.12s}.nav-links.open a:nth-child(3){transition-delay:0.18s}.nav-links.open a:nth-child(4){transition-delay:0.24s}}
+        @media (min-width:769px){.menu-toggle{display:none !important}}
     </style>
 </head>
 <body>
@@ -67,7 +79,13 @@
         <div class="container">
             <nav>
                 <div class="logo"><a href="index.html"><img src="logo.png" alt="Takrent Logo" width="240" height="90" fetchpriority="high" decoding="async"></a></div>
-                <ul class="nav-links">
+                <button class="menu-toggle" aria-label="Åpne meny" aria-expanded="false" aria-controls="navLinks">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+
+                <ul id="navLinks" class="nav-links">
                     <li><a href="index.html">Hjem</a></li>
                     <li><a href="tjenester.html">Tjenester</a></li>
                     <li><a href="kontakt.html">Kontakt</a></li>
@@ -113,58 +131,83 @@
                 <p style="margin-top:12px; color:#666; font-size:0.95rem;">Vi sender deg en prisantydning eller tar kontakt for oppfølging. Du kan også velge å sende via e-postklienten.</p>
             </section>
 
-            <script>
-                (function(){
-                    const form = document.getElementById('contactForm');
-                    const status = document.getElementById('formStatus');
+    <script>
+    (function(){
+        const form = document.getElementById('contactForm');
+        if(form){
+            const status = document.getElementById('formStatus');
 
-                    function showMessage(msg, isError){
-                        status.textContent = msg;
-                        status.style.color = isError ? '#d9534f' : '#2b7a2b';
+            function showMessage(msg, isError){
+                status.textContent = msg;
+                status.style.color = isError ? '#d9534f' : '#2b7a2b';
+            }
+
+            form.addEventListener('submit', function(ev){
+                ev.preventDefault();
+                const formData = new FormData(form);
+                const action = form.getAttribute('action');
+
+                showMessage('Sender…', false);
+
+                fetch(action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                }).then(function(response){
+                    if(response.ok){
+                        showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
+                        form.reset();
+                    } else {
+                        response.json().then(function(data){
+                            if(data && data.error){ showMessage(data.error, true); }
+                            else { showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); }
+                        }).catch(function(){ showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); });
                     }
+                }).catch(function(){ showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true); });
+            });
+        }
 
-                    form.addEventListener('submit', function(ev){
-                        ev.preventDefault();
-                        const formData = new FormData(form);
+        // Mobile nav toggle
+        const btn = document.querySelector('.menu-toggle');
+        const nav = document.getElementById('navLinks');
+        if(btn && nav){
+            btn.addEventListener('click', function(e){
+                e.stopPropagation();
+                const open = nav.classList.toggle('open');
+                btn.classList.toggle('open', open);
+                btn.setAttribute('aria-expanded', open);
+                btn.setAttribute('aria-label', open ? 'Lukk meny' : 'Åpne meny');
+                if(open){
+                    const firstLink = nav.querySelector('a');
+                    if(firstLink) firstLink.focus();
+                }
+            });
 
-                        // Replace {YOUR_FORM_ID} in the form action with your actual Formspree form id
-                        const action = form.getAttribute('action');
-                        if(action.indexOf('{YOUR_FORM_ID}') !== -1){
-                            showMessage('Bytt ut {YOUR_FORM_ID} i form action med ditt Formspree form id.', true);
-                            return;
-                        }
+            nav.querySelectorAll('a').forEach(a => a.addEventListener('click', function(){
+                nav.classList.remove('open');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', false);
+            }));
 
-                        const submitUrl = action;
+            document.addEventListener('click', function(e){
+                if(!nav.contains(e.target) && !btn.contains(e.target)){
+                    nav.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', false);
+                }
+            });
 
-                        showMessage('Sender…', false);
-
-                        fetch(submitUrl, {
-                            method: 'POST',
-                            body: formData,
-                            headers: {
-                                'Accept': 'application/json'
-                            }
-                        }).then(function(response){
-                            if(response.ok){
-                                showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
-                                form.reset();
-                            } else {
-                                response.json().then(function(data){
-                                    if(data && data.error){
-                                        showMessage(data.error, true);
-                                    } else {
-                                        showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true);
-                                    }
-                                }).catch(function(){
-                                    showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true);
-                                });
-                            }
-                        }).catch(function(){
-                            showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true);
-                        });
-                    });
-                })();
-            </script>
+            document.addEventListener('keydown', function(e){
+                if(e.key === 'Escape' && nav.classList.contains('open')){
+                    nav.classList.remove('open');
+                    btn.classList.remove('open');
+                    btn.setAttribute('aria-expanded', false);
+                    btn.focus();
+                }
+            });
+        }
+    })();
+    </script>
     </main>
 
     <footer>
