@@ -1,6 +1,264 @@
-<html>
-  <head></head>
-  <body>
-    <h1>Hei</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Takrent - Profesjonell Takvask og Vedlikehold</title>
+    <style>
+        /* --- GRUNNLEGGENDE OPPSETT (CSS) --- */
+        :root {
+            --primary-color: #0056b3; /* Mørkeblå */
+            --accent-color: #ff9800; /* Oransje for knapper */
+            --text-color: #333;
+            --light-bg: #f4f4f4;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+        }
+
+        a { text-decoration: none; color: inherit; }
+        ul { list-style: none; }
+
+        /* --- NAVIGASJON --- */
+        header {
+            background: var(--white);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- HERO SEKSJON (TOPPEN) --- */
+        .hero {
+            /* Bilde av tak/hus - Bytt URL hvis du vil ha et annet */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1628624747186-a941c72bb48c?auto=format&fit=crop&q=80&w=1920');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            margin-top: 70px; /* Kompenserer for fast meny */
+        }
+
+        .hero-content h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: var(--white);
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background: #e68900;
+            transform: scale(1.05);
+        }
+
+        /* --- TJENESTER --- */
+        .services {
+            padding: 80px 0;
+            background: var(--light-bg);
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+        }
+
+        /* --- KONTAKT / FOOTER --- */
+        footer {
+            background: #222;
+            color: var(--white);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .contact-item {
+            font-size: 1.1rem;
+        }
+
+        .copyright {
+            border-top: 1px solid #444;
+            padding-top: 20px;
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        /* Mobil-tilpasning */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2rem; }
+            .nav-links { display: none; } /* Skjuler meny på mobil for enkelhets skyld */
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Takrent</div>
+                <ul class="nav-links">
+                    <li><a href="#hjem">Hjem</a></li>
+                    <li><a href="#tjenester">Tjenester</a></li>
+                    <li><a href="#kontakt">Kontakt</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hjem" class="hero">
+        <div class="container hero-content">
+            <h1>Forny taket ditt i dag</h1>
+            <p>Vi fjerner mose, alger og smuss. Forleng takets levetid og få huset til å skinne med Takrent.</p>
+            <a href="mailto:post@takrent-eksempel.no?subject=Gratis prisantydning" class="cta-button">Få en gratis prisantydning</a>
+        </div>
+    </section>
+
+    <section id="tjenester" class="services">
+        <div class="container">
+            <h2 class="section-title">Våre Tjenester</h2>
+            <div class="services-grid">
+                
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=500" alt="Takvask">
+                    <h3>Takvask & Rens</h3>
+                    <p>Skånsom og effektiv fjerning av smuss og alger som får taket til å se nytt ut.</p>
+                </div>
+
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1596253686828-564539665243?auto=format&fit=crop&q=80&w=500" alt="Mosefjerning">
+                    <h3>Mosefjerning</h3>
+                    <p>Vi fjerner mose mekanisk og kjemisk for å hindre frostspreng i takstein.</p>
+                </div>
+
+                <div class="service-card">
+                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=500" alt="Takrenne rens">
+                    <h3>Takrenne-rens</h3>
+                    <p>Vi tømmer og renser takrenner for å sikre god vannavrenning og hindre skader.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer id="kontakt">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Kontakt oss</h2>
+            <p style="margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; color: #ccc;">
+                Er du usikker på hva taket ditt trenger? Ta kontakt for en uforpliktende prat og befaring.
+            </p>
+            
+            <div class="contact-info">
+                <div class="contact-item">📞 <strong>Telefon:</strong> 12 34 56 78</div>
+                <div class="contact-item">✉️ <strong>E-post:</strong> kontakt@takrent.no</div>
+                <div class="contact-item">📍 <strong>Adresse:</strong> Takveien 1, 0123 Oslo</div>
+            </div>
+
+            <a href="mailto:kontakt@takrent.no" class="cta-button">Send oss en e-post</a>
+
+            <div class="copyright">
+                &copy; 2024 Takrent. Alle rettigheter reservert.
+            </div>
+        </div>
+    </footer>
+
+</body>
 </html>
