@@ -5,43 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takrent - Profesjonell Takvask og Vedlikehold</title>
     <style>
-        /* --- GRUNNLEGGENDE OPPSETT (CSS) --- */
+        /* --- GRUNNLEGGENDE OPPSETT --- */
         :root {
             --primary-color: #0056b3; /* Mørkeblå */
-            --accent-color: #ff9800; /* Oransje for knapper */
-            --text-color: #333;
-            --light-bg: #f4f4f4;
-            --white: #ffffff;
+            --accent-color: #ff9800; /* Oransje */
+            --accent-hover: #e68900;
+            --text-dark: #333;
+            --text-light: #ffffff;
+            --bg-light: #f9f9f9;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
             line-height: 1.6;
-            color: var(--text-color);
+            color: var(--text-dark);
+            background-color: var(--bg-light);
         }
 
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: color 0.3s; }
         ul { list-style: none; }
 
-        /* --- NAVIGASJON --- */
+        /* --- NAVIGASJON (PROFF & RYDDIG) --- */
         header {
-    background: rgba(255, 255, 255, 0.95); /* Litt gjennomsiktig hvit */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: fixed;
-    width: 100%;
-    top: 0;
-    z-index: 1000;
-    padding: 10px 0; /* Gir luft over og under logoen */
-}
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 80px; /* Fast høyde for kontroll */
+            display: flex;
+            align-items: center;
+        }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
+            width: 100%;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -50,146 +51,190 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            height: 70px;
+            width: 100%;
         }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        /* Fikset logo-størrelse så den ikke overlapper */
+        .logo img {
+            height: 50px; /* Perfekt høyde for menyen */
+            width: auto;
+            display: block;
         }
 
         .nav-links {
             display: flex;
-            gap: 20px;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            color: var(--text-dark);
+            font-size: 1.05rem;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
         }
 
-        /* --- HERO SEKSJON (TOPPEN) --- */
+        /* --- HERO SEKSJON (FORSIDEN) --- */
         .hero {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    
-    /* Endre margin-top til padding-top for å dytte teksten ned, 
-       men holde bildet helt i toppen under den gjennomsiktige menyen */
-    margin-top: 0; 
-    padding-top: 120px; 
-    min-height: 80vh; /* Bruker 80% av skjermhøyden */
-    
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+            /* Mørkere overlay (0.6) for å sikre at hvit tekst popper frem */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Parallax effekt (proft!) */
+            
+            /* Justert høyde og padding */
+            min-height: 90vh; 
+            padding-top: 80px; /* Samme som header-høyde */
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light); /* VIKTIG: Hvit tekst */
+        }
 
         .hero-content h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 20px;
+            font-weight: 800;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Skygge for lesbarhet */
+            line-height: 1.2;
         }
 
         .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            max-width: 600px;
+            font-size: 1.3rem;
+            margin-bottom: 40px;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
+            font-weight: 400;
+            opacity: 0.95;
         }
 
+        /* --- KNAPPER (CTA) --- */
         .cta-button {
             display: inline-block;
             background: var(--accent-color);
-            color: var(--white);
-            padding: 15px 30px;
-            border-radius: 5px;
+            color: var(--text-light);
+            padding: 18px 40px;
+            border-radius: 50px; /* Rundere, mer moderne knapper */
             font-size: 1.1rem;
-            font-weight: bold;
-            transition: background 0.3s ease;
+            font-weight: 700;
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+            transition: all 0.3s ease;
         }
 
         .cta-button:hover {
-            background: #e68900;
-            transform: scale(1.05);
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
         }
 
         /* --- TJENESTER --- */
         .services {
-            padding: 80px 0;
-            background: var(--light-bg);
-            text-align: center;
+            padding: 100px 0;
+            background: var(--bg-light);
         }
 
         .section-title {
-            font-size: 2rem;
-            margin-bottom: 50px;
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
             color: var(--primary-color);
+            position: relative;
+        }
+        
+        /* Liten strek under overskrifter for design */
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background: var(--accent-color);
+            margin: 15px auto 0;
+            border-radius: 2px;
         }
 
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
         }
 
         .service-card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
         }
 
         .service-card img {
             width: 100%;
-            height: 150px;
+            height: 200px;
             object-fit: cover;
-            border-radius: 5px;
-            margin-bottom: 15px;
+        }
+
+        .card-content {
+            padding: 30px;
         }
 
         .service-card h3 {
             margin-bottom: 15px;
+            font-size: 1.5rem;
+            color: var(--text-dark);
         }
 
-        /* --- KONTAKT / FOOTER --- */
+        /* --- FOOTER --- */
         footer {
-            background: #222;
-            color: var(--white);
-            padding: 50px 0 20px;
+            background: #1a1a1a;
+            color: #ccc;
+            padding: 80px 0 30px;
             text-align: center;
+        }
+
+        .footer-content h2 {
+            color: var(--text-light);
+            margin-bottom: 20px;
         }
 
         .contact-info {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-bottom: 30px;
+            justify-content: center;
+            gap: 40px;
+            margin: 40px 0;
+            flex-wrap: wrap;
         }
 
         .contact-item {
             font-size: 1.1rem;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .copyright {
-            border-top: 1px solid #444;
+            margin-top: 50px;
+            border-top: 1px solid #333;
             padding-top: 20px;
             font-size: 0.9rem;
-            color: #888;
         }
 
-        /* Mobil-tilpasning */
+        /* --- MOBIL TILPASNING --- */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2rem; }
-            .nav-links { display: none; } /* Skjuler meny på mobil for enkelhets skyld */
+            header { height: auto; padding: 15px 0; }
+            nav { flex-direction: column; gap: 15px; }
+            .hero-content h1 { font-size: 2.2rem; }
+            .contact-info { flex-direction: column; gap: 15px; }
+            .logo img { height: 40px; } /* Enda mindre logo på mobil */
         }
     </style>
 </head>
@@ -199,8 +244,8 @@
         <div class="container">
             <nav>
                 <div class="logo">
-    <img src="logo.png" alt="Takrent Logo" style="height: 120px; width: auto; display: block;">
-</div>
+                    <img src="logo.png" alt="Takrent Logo">
+                </div>
                 <ul class="nav-links">
                     <li><a href="#hjem">Hjem</a></li>
                     <li><a href="#tjenester">Tjenester</a></li>
@@ -225,20 +270,26 @@
                 
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=500" alt="Takvask">
-                    <h3>Takvask & Rens</h3>
-                    <p>Skånsom og effektiv fjerning av smuss og alger som får taket til å se nytt ut.</p>
+                    <div class="card-content">
+                        <h3>Takvask & Rens</h3>
+                        <p>Skånsom og effektiv fjerning av smuss og alger som får taket til å se nytt ut uten å skade takstein.</p>
+                    </div>
                 </div>
 
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1596253686828-564539665243?auto=format&fit=crop&q=80&w=500" alt="Mosefjerning">
-                    <h3>Mosefjerning</h3>
-                    <p>Vi fjerner mose mekanisk og kjemisk for å hindre frostspreng i takstein.</p>
+                    <div class="card-content">
+                        <h3>Mosefjerning</h3>
+                        <p>Vi fjerner mose mekanisk og kjemisk. Dette forhindrer frostspreng og forlenger levetiden betraktelig.</p>
+                    </div>
                 </div>
 
                 <div class="service-card">
                     <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=500" alt="Takrenne rens">
-                    <h3>Takrenne-rens</h3>
-                    <p>Vi tømmer og renser takrenner for å sikre god vannavrenning og hindre skader.</p>
+                    <div class="card-content">
+                        <h3>Takrenne-rens</h3>
+                        <p>Tette takrenner kan gi vannskader på fasade. Vi tømmer og renser dem for fri vannflyt.</p>
+                    </div>
                 </div>
 
             </div>
@@ -246,16 +297,16 @@
     </section>
 
     <footer id="kontakt">
-        <div class="container">
-            <h2 style="margin-bottom: 20px;">Kontakt oss</h2>
-            <p style="margin-bottom: 30px; max-width: 600px; margin-left: auto; margin-right: auto; color: #ccc;">
-                Er du usikker på hva taket ditt trenger? Ta kontakt for en uforpliktende prat og befaring.
+        <div class="container footer-content">
+            <h2>Kontakt oss</h2>
+            <p style="max-width: 600px; margin: 0 auto 30px auto;">
+                Er du usikker på hva taket ditt trenger? Ta kontakt for en hyggelig og uforpliktende befaring.
             </p>
             
             <div class="contact-info">
-                <div class="contact-item">📞 <strong>Telefon:</strong> 92 138 180 </div>
-                <div class="contact-item">✉️ <strong>E-post:</strong> ea.takrent@gmail.com </div>
-                <div class="contact-item">📍 <strong>Lokasjon:</strong> Tønsberg</div>
+                <div class="contact-item">📞 <strong>92 138 180</strong></div>
+                <div class="contact-item">✉️ <strong>ea.takrent@gmail.com</strong></div>
+                <div class="contact-item">📍 <strong>Tønsberg</strong></div>
             </div>
 
             <a href="mailto:ea.takrent@gmail.com" class="cta-button">Send oss en e-post</a>
