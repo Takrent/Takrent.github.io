@@ -7,8 +7,8 @@
     <style>
         /* --- GRUNNLEGGENDE OPPSETT --- */
         :root {
-            --primary-color: #0056b3; /* Mørkeblå */
-            --accent-color: #ff9800; /* Oransje */
+            --primary-color: #0056b3;
+            --accent-color: #ff9800;
             --accent-hover: #e68900;
             --text-dark: #333;
             --text-light: #ffffff;
@@ -27,15 +27,16 @@
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
         ul { list-style: none; }
 
-        /* --- NAVIGASJON (PROFF & RYDDIG) --- */
+        /* --- NAVIGASJON --- */
         header {
             background: rgba(255, 255, 255, 0.98);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            border-bottom: 1px solid #eee; /* Byttet ut skygge med en tynn linje for renere look */
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            height: 80px; /* Fast høyde for kontroll */
+            /* Fjernet fast høyde (height: 80px) så den vokser med logoen */
+            padding: 15px 0; 
             display: flex;
             align-items: center;
         }
@@ -54,9 +55,9 @@
             width: 100%;
         }
 
-        /* Fikset logo-størrelse så den ikke overlapper */
+        /* ENDRING 1: Større logo */
         .logo img {
-            height: 50px; /* Perfekt høyde for menyen */
+            height: 80px; /* Økt fra 50px til 80px */
             width: auto;
             display: block;
         }
@@ -70,36 +71,41 @@
             font-weight: 600;
             color: var(--text-dark);
             font-size: 1.05rem;
+            text-transform: uppercase; /* Gjør menyteksten litt mer "proff" */
+            font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
         }
 
-        /* --- HERO SEKSJON (FORSIDEN) --- */
+        /* --- HERO SEKSJON --- */
         .hero {
-            /* Mørkere overlay (0.6) for å sikre at hvit tekst popper frem */
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax effekt (proft!) */
+            background-attachment: fixed;
             
-            /* Justert høyde og padding */
-            min-height: 90vh; 
-            padding-top: 80px; /* Samme som header-høyde */
+            min-height: 90vh;
+            
+            /* ENDRING 2: Mer plass på toppen */
+            /* Siden headeren nå er høyere (ca 110px totalt med padding), 
+               må vi dytte innholdet ned med minst 130px så det ikke havner bak menyen */
+            padding-top: 130px; 
             
             display: flex;
             align-items: center;
             justify-content: center;
             text-align: center;
-            color: var(--text-light); /* VIKTIG: Hvit tekst */
+            color: var(--text-light);
         }
 
         .hero-content h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
             font-weight: 800;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3); /* Skygge for lesbarhet */
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
             line-height: 1.2;
         }
 
@@ -118,18 +124,20 @@
             display: inline-block;
             background: var(--accent-color);
             color: var(--text-light);
-            padding: 18px 40px;
-            border-radius: 50px; /* Rundere, mer moderne knapper */
+            padding: 16px 36px; /* Litt strammere padding */
+            border-radius: 4px; /* Gikk fra 50px til 4px for en mer "seriøs/proff" firkantet look */
             font-size: 1.1rem;
             font-weight: 700;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
-            transition: all 0.3s ease;
+            
+            /* ENDRING 3: Fjernet glød (box-shadow) */
+            box-shadow: none; 
+            
+            transition: background 0.3s ease;
         }
 
         .cta-button:hover {
             background: var(--accent-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.6);
+            /* Ingen transform eller skygge ved hover, kun fargebytte */
         }
 
         /* --- TJENESTER --- */
@@ -143,18 +151,6 @@
             font-size: 2.5rem;
             margin-bottom: 60px;
             color: var(--primary-color);
-            position: relative;
-        }
-        
-        /* Liten strek under overskrifter for design */
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--accent-color);
-            margin: 15px auto 0;
-            border-radius: 2px;
         }
 
         .services-grid {
@@ -165,15 +161,15 @@
 
         .service-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 8px; /* Litt mindre avrundet */
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eee; /* Tynn ramme istedenfor skygge for renere look */
+            transition: transform 0.3s ease;
         }
 
         .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            transform: translateY(-5px);
+            border-color: #ddd;
         }
 
         .service-card img {
@@ -228,13 +224,13 @@
             font-size: 0.9rem;
         }
 
-        /* --- MOBIL TILPASNING --- */
+        /* --- MOBIL --- */
         @media (max-width: 768px) {
-            header { height: auto; padding: 15px 0; }
-            nav { flex-direction: column; gap: 15px; }
+            .nav-links { display: none; } /* Enkel mobilvisning: skjuler linker for å spare plass */
+            .hero { padding-top: 150px; } /* Enda mer plass på mobil hvis logoen tar plass */
+            .logo img { height: 60px; } /* Litt mindre logo på mobil */
             .hero-content h1 { font-size: 2.2rem; }
             .contact-info { flex-direction: column; gap: 15px; }
-            .logo img { height: 40px; } /* Enda mindre logo på mobil */
         }
     </style>
 </head>
