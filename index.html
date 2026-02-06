@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Takrent - Profesjonell Takvask og Vedlikehold</title>
+    <link rel="preload" as="image" href="Gemini_Generated_Image_z8en6sz8en6sz8en.png">
     <style>
         /* --- GRUNNLEGGENDE OPPSETT --- */
         :root {
             --primary-color: #0056b3;
-            --accent-color: #ff9800;
-            --accent-hover: #e68900;
+            --accent-color: #1e88e5;
+            --accent-hover: #1565c0;
             --text-dark: #333;
             --text-light: #ffffff;
             --bg-light: #f9f9f9;
@@ -22,6 +23,7 @@
             line-height: 1.6;
             color: var(--text-dark);
             background-color: var(--bg-light);
+            scroll-behavior: smooth;
         }
 
         a { text-decoration: none; color: inherit; transition: color 0.3s; }
@@ -29,14 +31,14 @@
 
         /* --- NAVIGASJON --- */
         header {
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid #eee; /* Byttet ut skygge med en tynn linje for renere look */
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            /* Fjernet fast høyde (height: 80px) så den vokser med logoen */
-            padding: 15px 0; 
+            height: 100px; /* increased to fit larger logo */
+            padding: 0;
             display: flex;
             align-items: center;
         }
@@ -55,9 +57,8 @@
             width: 100%;
         }
 
-        /* ENDRING 1: Større logo */
         .logo img {
-            height: 80px; /* Økt fra 50px til 80px */
+            height: 90px; /* ~1.5x larger */
             width: auto;
             display: block;
         }
@@ -70,14 +71,16 @@
         .nav-links a {
             font-weight: 600;
             color: var(--text-dark);
-            font-size: 1.05rem;
             text-transform: uppercase; /* Gjør menyteksten litt mer "proff" */
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             letter-spacing: 1px;
+            transition: color 0.18s ease, transform 0.12s ease;
+            display: inline-block;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
+            transform: translateY(-2px);
         }
 
         /* --- HERO SEKSJON --- */
@@ -85,14 +88,14 @@
             background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('Gemini_Generated_Image_z8en6sz8en6sz8en.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            /* removed fixed attachment to reduce repaints and improve performance */
+            background-attachment: scroll;
             
             min-height: 90vh;
             
             /* ENDRING 2: Mer plass på toppen */
-            /* Siden headeren nå er høyere (ca 110px totalt med padding), 
-               må vi dytte innholdet ned med minst 130px så det ikke havner bak menyen */
-            padding-top: 130px; 
+                /* Adjust so content doesn't sit under the fixed header */
+                padding-top: 100px; 
             
             display: flex;
             align-items: center;
@@ -209,6 +212,36 @@
             flex-wrap: wrap;
         }
 
+        .social-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .social-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            color: white;
+        }
+
+        .social-button svg { width: 20px; height: 20px; display: block; }
+
+        .social-button.facebook { background: #1877F2; }
+        .social-button.instagram { background: radial-gradient(circle at 30% 30%, #fccc63, #fb6a5a 40%, #833ab4 100%); }
+
+        .social-button { transition: transform 0.12s ease, box-shadow 0.12s ease; }
+        .social-button:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(0,0,0,0.08); }
+        
+
         .contact-item {
             font-size: 1.1rem;
             color: white;
@@ -219,7 +252,7 @@
 
         .copyright {
             margin-top: 50px;
-            border-top: 1px solid #333;
+            border-top: 1px solid #353535;
             padding-top: 20px;
             font-size: 0.9rem;
         }
@@ -232,6 +265,40 @@
             .hero-content h1 { font-size: 2.2rem; }
             .contact-info { flex-direction: column; gap: 15px; }
         }
+        /* Contact form styles (matching kontakt.html) */
+        #contactForm input,
+        #contactForm textarea,
+        #contactForm select {
+            font-family: inherit;
+            font-size: 1rem;
+            color: #333;
+        }
+
+        #contactForm input,
+        #contactForm textarea {
+            box-shadow: 0 2px 6px rgba(16,24,40,0.04);
+            transition: box-shadow 0.12s ease, transform 0.08s ease;
+            width: 100%;
+            padding: 18px;
+            border-radius: 8px;
+            border: 1px solid #eee;
+            background: #fff;
+            margin-bottom: 14px;
+            font-size: 1rem;
+        }
+
+        #contactForm input:focus,
+        #contactForm textarea:focus {
+            box-shadow: 0 8px 24px rgba(16,24,40,0.08);
+            outline: none;
+            transform: translateY(-1px);
+        }
+
+        #contactForm label { display:block; margin-bottom:8px; color:#666; font-weight:600; letter-spacing:1px; }
+
+        #contactForm .cta-button { display:inline-block; background: var(--accent-color); color: #ffffff; padding: 12px 28px; border-radius: 4px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; transition: background 0.18s ease, transform 0.12s ease; font-family: inherit; }
+        #contactForm .cta-button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        #formStatus { min-width:220px; color:#666; }
     </style>
 </head>
 <body>
@@ -240,12 +307,13 @@
         <div class="container">
             <nav>
                 <div class="logo">
-                    <img src="logo.png" alt="Takrent Logo">
+                    <img src="logo.png" alt="Takrent Logo" width="240" height="90" fetchpriority="high" decoding="async">
                 </div>
                 <ul class="nav-links">
-                    <li><a href="#hjem">Hjem</a></li>
-                    <li><a href="#tjenester">Tjenester</a></li>
-                    <li><a href="#kontakt">Kontakt</a></li>
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="about.html">Om oss</a></li>
                 </ul>
             </nav>
         </div>
@@ -259,13 +327,15 @@
         </div>
     </section>
 
+    <!-- contact form removed from this location; moved into footer below -->
+
     <section id="tjenester" class="services">
         <div class="container">
             <h2 class="section-title">Våre Tjenester</h2>
             <div class="services-grid">
                 
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1632759145351-1d592919f522?auto=format&fit=crop&q=80&w=500" alt="Takvask">
+                    <img src="Spray.png" alt="Spray" width="500" height="200" loading="lazy" decoding="async">
                     <div class="card-content">
                         <h3>Takvask & Rens</h3>
                         <p>Skånsom og effektiv fjerning av smuss og alger som får taket til å se nytt ut uten å skade takstein.</p>
@@ -273,7 +343,7 @@
                 </div>
 
                 <div class="service-card">
-                    <img src="mose.png" alt="Mosefjerning" width="500">
+                    <img src="mose.png" alt="Mosefjerning" width="500" height="200" loading="lazy" decoding="async">
                     <div class="card-content">
                         <h3>Mosefjerning</h3>
                         <p>Vi fjerner mose. Dette forhindrer frostspreng og forlenger levetiden betraktelig.</p>
@@ -281,10 +351,10 @@
                 </div>
 
                 <div class="service-card">
-                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=500" alt="Takrenne rens">
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=500" alt="God og hyggelig service" width="500" height="200" loading="lazy" decoding="async">
                     <div class="card-content">
-                        <h3>Takrenne-rens</h3>
-                        <p>Tette takrenner kan gi vannskader på fasade. Vi tømmer og renser dem for fri vannflyt.</p>
+                        <h3>God og hyggelig service</h3>
+                        <p>Vi tilbyr god og hyggelig service som ivaretar kundens behov og sikrer fornøyde kunder.</p>
                     </div>
                 </div>
 
@@ -299,19 +369,97 @@
                 Er du usikker på hva taket ditt trenger? Ta kontakt for en hyggelig og uforpliktende befaring.
             </p>
             
-            <div class="contact-info">
-                <div class="contact-item">📞 <strong>92 138 180</strong></div>
-                <div class="contact-item">✉️ <strong>ea.takrent@gmail.com</strong></div>
-                <div class="contact-item">📍 <strong>Tønsberg</strong></div>
-            </div>
+            <!-- contact-info moved to bottom of footer -->
 
-            <a href="mailto:ea.takrent@gmail.com" class="cta-button">Send oss en e-post</a>
+            <!-- move the contact form here (replacing social buttons) -->
+            <div style="max-width:920px; margin: 0 auto; text-align:left;">
+                <h3 style="color:var(--text-light); margin-bottom:12px;">Kontakt oss</h3>
+                <form id="contactForm" action="https://formspree.io/f/mojnqvqa" method="POST" style="margin-top:6px;">
+                    <label for="name">Navn</label>
+                    <input name="Navn" id="name" type="text" required placeholder="Ditt navn" />
+
+                    <label for="email">E-post</label>
+                    <input name="_replyto" id="email" type="email" required placeholder="din@epost.no" />
+
+                    <label for="phone">Telefon</label>
+                    <input name="Telefon" id="phone" type="tel" placeholder="Telefon" />
+
+                    <label for="message">Melding</label>
+                    <textarea name="Melding" id="message" rows="4" placeholder="Skriv kort hva du ønsker (adresse, ønsket tidspunkt, osv.)"></textarea>
+
+                    <div style="display:flex; gap:12px; align-items:center; margin-top:8px;">
+                        <button id="sendBtn" type="submit" class="cta-button">Send</button>
+                        <div id="formStatus"></div>
+                    </div>
+                </form>
+            </div>
 
             <div class="copyright">
                 &copy; 2024 Takrent. Alle rettigheter reservert.
             </div>
+
+            <!-- social buttons moved to bottom of footer -->
+            <div class="social-buttons" style="margin-top:18px;">
+                <a href="https://www.facebook.com/profile.php?id=61587808702967" class="social-button facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M22 12.07C22 6.48 17.52 2 11.93 2S1.86 6.48 1.86 12.07c0 4.99 3.66 9.13 8.44 9.86v-6.99H8.13v-2.87h2.17V9.41c0-2.14 1.28-3.32 3.24-3.32.94 0 1.93.17 1.93.17v2.12h-1.08c-1.06 0-1.39.66-1.39 1.34v1.6h2.36l-.38 2.87h-1.98v6.99c4.78-.73 8.44-4.87 8.44-9.86z" fill="white"/>
+                    </svg>
+                    <span>Facebook</span>
+                </a>
+
+                <a href="https://www.instagram.com/ea.takrent/" class="social-button instagram" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm5 6.5A4.5 4.5 0 1 0 16.5 13 4.5 4.5 0 0 0 12 8.5zm5.2-2.9a1.1 1.1 0 1 0 1.1 1.1 1.1 1.1 0 0 0-1.1-1.1z" fill="white"/>
+                    </svg>
+                    <span>Instagram</span>
+                </a>
+
+                <a href="mailto:ea.takrent@gmail.com" class="cta-button" style="padding:10px 18px; border-radius:6px; font-size:0.95rem;">Send oss en e-post</a>
+            </div>
+
+            <div class="contact-info" style="margin-top:18px;">
+                <div class="contact-item">📞 <strong>+47 92 13 81 80</strong></div>
+                <div class="contact-item">✉️ <strong>ea.takrent@gmail.com</strong></div>
+                <div class="contact-item">📍 <strong>Tønsberg</strong></div>
+            </div>
         </div>
     </footer>
-
 </body>
 </html>
+<script>
+    (function(){
+        const form = document.getElementById('contactForm');
+        if(!form) return;
+        const status = document.getElementById('formStatus');
+
+        function showMessage(msg, isError){
+            status.textContent = msg;
+            status.style.color = isError ? '#d9534f' : '#2b7a2b';
+        }
+
+        form.addEventListener('submit', function(ev){
+            ev.preventDefault();
+            const formData = new FormData(form);
+            const action = form.getAttribute('action');
+            const submitUrl = action;
+
+            showMessage('Sender…', false);
+
+            fetch(submitUrl, {
+                method: 'POST',
+                body: formData,
+                headers: { 'Accept': 'application/json' }
+            }).then(function(response){
+                if(response.ok){
+                    showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
+                    form.reset();
+                } else {
+                    response.json().then(function(data){
+                        if(data && data.error){ showMessage(data.error, true); }
+                        else { showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); }
+                    }).catch(function(){ showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true); });
+                }
+            }).catch(function(){ showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true); });
+        });
+    })();
+</script>

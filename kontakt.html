@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Kontakt — Takrent</title>
+    <style>
+        :root{ --primary-color:#0056b3; --accent-color:#1e88e5; --accent-hover:#1565c0; --text-dark:#222; --bg-light:#f9f9f9; }
+        ul { list-style: none; margin: 0; padding: 0; }
+        a { text-decoration: none; color: inherit; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; margin: 0; padding: 0; background:var(--bg-light); color:var(--text-dark); }
+        .container { max-width: 900px; margin: 40px auto; padding: 20px; }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 100px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav { display:flex; justify-content:space-between; align-items:center; width:100%; }
+        .nav-links { display:flex; gap:24px; }
+        .nav-links a { font-weight:600; color:var(--text-dark); text-transform:uppercase; font-size:0.95rem; letter-spacing:1px; transition: color 0.18s ease, transform 0.12s ease; text-decoration:none; }
+        .nav-links a:hover { color: var(--primary-color); transform: translateY(-2px); }
+
+        footer { padding: 30px; text-align:center; color:#777; margin-top:40px; }
+        .contact { background:#fff; border:1px solid #eee; padding:20px; border-radius:8px; }
+        .social-buttons { display:flex; gap:12px; margin-top:12px; }
+        .social-button { padding:10px 12px; border-radius:6px; color:#fff; text-decoration:none; font-weight:700 }
+        .facebook { background:#1877F2 }
+        .instagram { background: radial-gradient(circle at 30% 30%, #fccc63, #fb6a5a 40%, #833ab4 100%) }
+
+        /* Form elements - ensure consistent font and modern styles */
+        #contactForm input,
+        #contactForm textarea,
+        #contactForm select { font-family: inherit; font-size: 1rem; color: #333; }
+
+        #contactForm input,
+        #contactForm textarea { box-shadow: 0 2px 6px rgba(16,24,40,0.04); transition: box-shadow 0.12s ease, transform 0.08s ease; }
+
+        #contactForm input:focus,
+        #contactForm textarea:focus { box-shadow: 0 8px 24px rgba(16,24,40,0.08); outline: none; transform: translateY(-1px); }
+
+        .cta-button { display: inline-block; background: var(--accent-color); color: #ffffff; padding: 12px 28px; border-radius: 4px; font-size: 1.05rem; font-weight: 700; border: none; cursor: pointer; transition: background 0.18s ease, transform 0.12s ease; font-family: inherit; text-transform: none; }
+        .cta-button:hover { background: var(--accent-hover); transform: translateY(-2px); }
+        .cta-button:active { transform: translateY(-1px); }
+
+        #formStatus { min-width:220px; }
+
+        .logo img { height: 90px; width: auto; display:block; }
+
+        main.container { margin-top: 100px; }
+
+        main.container > img:first-of-type { width:100%; height:280px; object-fit:cover; border-radius:0; display:block; }
+
+        @media (max-width:768px){ .nav-links { display:none; } .logo img { height:60px; } }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="index.html"><img src="logo.png" alt="Takrent Logo" width="240" height="90" fetchpriority="high" decoding="async"></a></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="about.html">Om oss</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <img src="https://images.unsplash.com/photo-1528747045269-390fe33c19f2?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Takarbeid realistisk" width="1170" height="280" loading="lazy" decoding="async" style="width:100%; height:280px; object-fit:cover; border-radius:0; margin-bottom:20px;">
+        <h1>Kontakt oss</h1>
+        <div class="contact">
+            <p>Telefon</p>
+            <p>E-post: <strong>ea.takrent@gmail.com</strong></p>
+            <p>Adresse: Tønsberg</p>
+            <p><strong>Sesong:</strong> April – Oktober</p>
+            <div class="social-buttons">
+                <a class="social-button facebook" href="https://www.facebook.com/profile.php?id=61587808702967" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a class="social-button instagram" href="https://www.instagram.com/ea.takrent/" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </div>
+        </div>
+            <section style="max-width:920px; margin:32px auto 0;">
+                <h2>Ta kontakt i dag for gratis prisantydning</h2>
+                <form id="contactForm" action="https://formspree.io/f/mojnqvqa" method="POST" style="margin-top:18px;">
+                    <label style="display:block; margin-bottom:8px; color:#666; font-weight:600; letter-spacing:1px;">Navn</label>
+                    <input name="Navn" id="name" type="text" required placeholder="Ditt navn" style="width:100%; padding:18px; border-radius:8px; border:1px solid #eee; background:#fff; margin-bottom:14px; font-size:1rem;" />
+
+                    <label style="display:block; margin-bottom:8px; color:#666; font-weight:600; letter-spacing:1px;">E-post</label>
+                    <input name="_replyto" id="email" type="email" required placeholder="din@epost.no" style="width:100%; padding:18px; border-radius:8px; border:1px solid #eee; background:#fff; margin-bottom:14px; font-size:1rem;" />
+
+                    <label style="display:block; margin-bottom:8px; color:#666; font-weight:600; letter-spacing:1px;">Telefon</label>
+                    <input name="Telefon" id="phone" type="tel" placeholder="Telefon" style="width:100%; padding:18px; border-radius:8px; border:1px solid #eee; background:#fff; margin-bottom:14px; font-size:1rem;" />
+
+                    <label style="display:block; margin-bottom:8px; color:#666; font-weight:600; letter-spacing:1px;">Melding</label>
+                    <textarea name="Melding" id="message" rows="8" placeholder="Skriv kort hva du ønsker (adresse, ønsket tidspunkt, osv.)" style="width:100%; padding:18px; border-radius:8px; border:1px solid #eee; background:#fff; margin-bottom:18px; font-size:1rem;"></textarea>
+
+                <div style="display:flex; gap:12px; align-items:center;">
+                    <button id="sendBtn" type="submit" class="cta-button">Send</button>
+                    <div id="formStatus" style="color:#666; font-size:0.95rem;"></div>
+                </div>
+                </form>
+                <p style="margin-top:12px; color:#666; font-size:0.95rem;">Vi sender deg en prisantydning eller tar kontakt for oppfølging. Du kan også velge å sende via e-postklienten.</p>
+            </section>
+
+            <script>
+                (function(){
+                    const form = document.getElementById('contactForm');
+                    const status = document.getElementById('formStatus');
+
+                    function showMessage(msg, isError){
+                        status.textContent = msg;
+                        status.style.color = isError ? '#d9534f' : '#2b7a2b';
+                    }
+
+                    form.addEventListener('submit', function(ev){
+                        ev.preventDefault();
+                        const formData = new FormData(form);
+
+                        // Replace {YOUR_FORM_ID} in the form action with your actual Formspree form id
+                        const action = form.getAttribute('action');
+                        if(action.indexOf('{YOUR_FORM_ID}') !== -1){
+                            showMessage('Bytt ut {YOUR_FORM_ID} i form action med ditt Formspree form id.', true);
+                            return;
+                        }
+
+                        const submitUrl = action;
+
+                        showMessage('Sender…', false);
+
+                        fetch(submitUrl, {
+                            method: 'POST',
+                            body: formData,
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        }).then(function(response){
+                            if(response.ok){
+                                showMessage('Takk — vi har mottatt forespørselen. Vi kontakter deg snart.', false);
+                                form.reset();
+                            } else {
+                                response.json().then(function(data){
+                                    if(data && data.error){
+                                        showMessage(data.error, true);
+                                    } else {
+                                        showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true);
+                                    }
+                                }).catch(function(){
+                                    showMessage('Noe gikk galt ved sending. Prøv igjen senere.', true);
+                                });
+                            }
+                        }).catch(function(){
+                            showMessage('Kunne ikke sende — sjekk nettverk eller prøv igjen.', true);
+                        });
+                    });
+                })();
+            </script>
+    </main>
+
+    <footer>
+        &copy; 2024 Takrent
+    </footer>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Om oss — Takrent</title>
+    <style>
+        :root{ --primary-color:#0056b3; --accent-color:#1e88e5; --accent-hover:#1565c0; --text-dark:#222; --bg-light:#f9f9f9; }
+        ul { list-style: none; margin: 0; padding: 0; }
+        a { text-decoration: none; color: inherit; }
+        body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; line-height:1.6; margin: 0; padding: 0; background:var(--bg-light); color:var(--text-dark); }
+        .container { max-width: 960px; margin: 40px auto; padding: 20px; }
+
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #eee;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 100px;
+            padding: 0;
+            display: flex;
+            align-items: center;
+        }
+
+        nav { display:flex; justify-content:space-between; align-items:center; width:100%; }
+
+
+        .nav-links { display:flex; gap:24px; }
+        .nav-links a { font-weight:600; color:var(--text-dark); text-transform:uppercase; font-size:0.95rem; letter-spacing:1px; transition: color 0.18s ease, transform 0.12s ease; text-decoration:none; }
+        .nav-links a:hover { color: var(--primary-color); transform: translateY(-2px); }
+
+        /* keep CTA and footer styles */
+        .cta-button { background:var(--accent-color); color:#fff; padding:10px 16px; border-radius:6px; text-decoration:none; font-weight:700; }
+        footer { padding: 30px; text-align:center; color:#777; margin-top:40px; }
+
+        /* adjust main content to not sit under fixed header */
+        .logo img { height: 90px; width: auto; display:block; }
+
+        main.container { margin-top: 100px; }
+
+        /* ensure top hero image is visible and aligns with homepage style */
+        main.container > img:first-of-type { width:100%; height:300px; object-fit:cover; border-radius:0; display:block; }
+
+        @media (max-width:768px){
+            .nav-links { display:none; }
+            .logo img { height:60px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo"><a href="index.html"><img src="logo.png" alt="Takrent Logo" width="240" height="90" fetchpriority="high" decoding="async"></a></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Hjem</a></li>
+                    <li><a href="tjenester.html">Tjenester</a></li>
+                    <li><a href="kontakt.html">Kontakt</a></li>
+                    <li><a href="about.html">Om oss</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&q=80&w=1400" alt="Takvask" width="1400" height="300" loading="lazy" decoding="async" style="width:100%; height:300px; object-fit:cover; border-radius:0; margin-bottom:20px;">
+
+        <h1>Om Takrent</h1>
+        <p>Takrent ble startet av to engasjerte 18-åringer, Amund og Emil, som ville skape en profesjonell og pålitelig tjeneste for takvask og vedlikehold. Selv om vi er unge, tar vi arbeidet seriøst: vi kommer presist, bruker sikre og skånsomme metoder, og gir alltid klare anbefalinger for å forlenge levetiden til taket ditt.</p>
+
+        <h2>Vår filosofi</h2>
+        <p>Amund og Emil tror på god kundedialog, ærlig prisvurdering og et arbeid utført med stolthet. Målet er å levere et resultat som ser profesjonelt ut og som kundene kan stole på i årene som kommer.</p>
+
+        <h2>Kontakt</h2>
+        <p>Telefon: <strong>92 138 180</strong><br>Email: <strong>ea.takrent@gmail.com</strong></p>
+    </main>
+
+    <footer>
+        &copy; 2024 Takrent
+    </footer>
+</body>
+</html>
